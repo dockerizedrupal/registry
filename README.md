@@ -1,7 +1,7 @@
 docker-docker-registry
 ======================
 
-Docker image to run a Docker registry server
+Docker image to run a private Docker registry server
 
 Build the image
 ---------------
