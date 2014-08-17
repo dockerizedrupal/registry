@@ -12,4 +12,4 @@ RUN rm -rf /opt/build
 ADD ./src/run.sh /opt/run.sh
 RUN chmod +x /opt/run.sh
 
-ENTRYPOINT ["/opt/run.sh"]
+CMD ["/opt/run.sh"]
