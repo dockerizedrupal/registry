@@ -1,4 +1,4 @@
-FROM registry
+FROM docker-registry.simpledrupalcloud.com/puppet
 
 MAINTAINER Simple Drupal Cloud <support@simpledrupalcloud.com>
 
