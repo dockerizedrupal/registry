@@ -6,7 +6,8 @@ class registry::packages {
   package {[
       'python-dev',
       'liblzma-dev',
-      'libevent-dev'
+      'libevent-dev',
+      'build-essential'
     ]:
     ensure => present,
     require => Exec['apt-get update'],
