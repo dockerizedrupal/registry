@@ -20,4 +20,4 @@ VOLUME ["/registry/data"]
 
 EXPOSE 443
 
-ENTRYPOINT ["/src/run.sh"]
+CMD ["/src/run.sh"]
