@@ -5,6 +5,8 @@ registry:
     - "443:443"
   volumes_from:
     - registrydata
+  environment:
+    - PASSWORD=root
 registrydata:
   image: simpledrupalcloud/data:dev
   hostname: registrydata
