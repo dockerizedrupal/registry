@@ -1,4 +1,4 @@
-FROM registry:latest
+FROM simpledrupalcloud/base:latest
 
 MAINTAINER Simple Drupal Cloud <support@simpledrupalcloud.com>
 
