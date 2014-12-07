@@ -4,7 +4,8 @@ class registry::packages {
   }
 
   package {[
-      'python-dev'
+      'python-dev',
+      'liblzma-dev'
     ]:
     ensure => present,
     require => Exec['apt-get update'],
