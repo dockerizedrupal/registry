@@ -7,7 +7,8 @@ class registry::packages {
       'build-essential',
       'python-dev',
       'libevent-dev',
-      'liblzma-dev'
+      'liblzma-dev',
+      'apache2'
     ]:
     ensure => present,
     require => Exec['apt-get update'],
