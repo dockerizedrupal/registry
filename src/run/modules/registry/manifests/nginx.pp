@@ -5,8 +5,7 @@ class registry::nginx {
     mode => 644
   }
 
-  exec { "htpasswd -Bb -c /etc/nginx/registry.htpasswd root $password":
-    timeout => 0,
-    path => ['/usr/bin']
+  exec { "/bin/bash -c \"htpasswd -Bb -c /etc/nginx/registry.htpasswd root $password\"":
+    timeout => 0
   }
 }
