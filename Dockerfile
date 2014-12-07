@@ -13,6 +13,6 @@ RUN rm -rf /tmp/*
 
 VOLUME ["/registry/data"]
 
-EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT ["/src/run.sh"]

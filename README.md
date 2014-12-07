@@ -15,7 +15,7 @@ Using the `docker` command:
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
-      -p 80:80 \
+      -p 443:443 \
       --volumes-from registrydata \
       -d \
       simpledrupalcloud/registry:latest

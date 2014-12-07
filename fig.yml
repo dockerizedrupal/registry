@@ -2,7 +2,7 @@ registry:
   image: simpledrupalcloud/registry:latest
   hostname: registry
   ports:
-    - "80:80"
+    - "443:443"
   volumes_from:
     - registrydata
 registrydata:
