@@ -1,2 +1,5 @@
-docker-docker-registry
-======================
+# docker-registry
+
+## License
+
+**MIT**
