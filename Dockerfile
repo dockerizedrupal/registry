@@ -1,4 +1,4 @@
-FROM simpledrupalcloud/base:latest
+FROM simpledrupalcloud/nginx:dev
 
 MAINTAINER Simple Drupal Cloud <support@simpledrupalcloud.com>
 

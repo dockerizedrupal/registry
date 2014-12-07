@@ -3,8 +3,7 @@ class registry::packages {
       'build-essential',
       'python-dev',
       'libevent-dev',
-      'liblzma-dev',
-      'apache2'
+      'liblzma-dev'
     ]:
     ensure => present
   }

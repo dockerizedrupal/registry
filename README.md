@@ -1,6 +1,6 @@
 # docker-registry
 
-## Registry (STABLE BRANCH)
+## Registry (DEVELOPMENT BRANCH)
 
 ### Run the container
 
@@ -10,7 +10,7 @@ Using the `docker` command:
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry/data \
-      simpledrupalcloud/data:latest
+      simpledrupalcloud/data:dev
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
@@ -18,13 +18,14 @@ Using the `docker` command:
       -p 443:443 \
       --volumes-from registrydata \
       -d \
-      simpledrupalcloud/registry:latest
+      simpledrupalcloud/registry:dev
 
 Using the `fig` command
 
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
+      && git checkout dev \
       && sudo fig up
 
 ### Build the image
@@ -32,7 +33,8 @@ Using the `fig` command
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && sudo docker build -t simpledrupalcloud/registry:latest . \
+      && git checkout dev \
+      && sudo docker build -t simpledrupalcloud/registry:dev . \
       && cd -
 
 ## Back up Registry data
