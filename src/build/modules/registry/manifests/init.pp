@@ -3,5 +3,7 @@ class registry {
   require registry::httpd
   require registry::supervisor
 
-  exec { '/bin/bash -c "pip install docker-registry"': }
+  exec { '/bin/bash -c "pip install docker-registry"':
+    timeout => 0
+  }
 }
