@@ -6,10 +6,6 @@ server {
   listen 443 ssl;
   server_name <%= @server_name %>
 
-  client_max_body_size 1024m;
-
-  chunked_transfer_encoding on;
-
   location / {
     auth_basic "Restricted";
     auth_basic_user_file /etc/nginx/registry.htpasswd;
