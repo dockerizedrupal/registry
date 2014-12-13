@@ -13,6 +13,7 @@ RUN /src/clean.sh
 
 VOLUME ["/registry/data"]
 
+EXPOSE 80
 EXPOSE 443
 
-CMD ["/bin/bash", "-l", "-c", "/src/run.sh"]
+CMD ["/src/run.sh"]

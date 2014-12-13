@@ -6,6 +6,12 @@ fi
 
 export FACTER_SERVER_NAME="${SERVER_NAME}"
 
+if [ -z "${USERNAME}" ]; then
+  USERNAME="root"
+fi
+
+export FACTER_USERNAME="${USERNAME}"
+
 if [ -z "${PASSWORD}" ]; then
   PASSWORD="root"
 fi

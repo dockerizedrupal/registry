@@ -13,10 +13,12 @@ Using the `docker` command:
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
+      -p 80:80 \
       -p 443:443 \
       --volumes-from registrydata \
-      -e SERVER_NAME="registry.simpleddrupalcloud.com" \
-      -e PASSWORD="#YOEUr1ZjW#OeSTY" \
+      -e SERVER_NAME="localhost" \
+      -e USERNAME="root" \
+      -e PASSWORD="root" \
       -d \
       simpledrupalcloud/registry:dev
 
