@@ -191,7 +191,7 @@ dev: &dev
     <<: *local
     loglevel: _env:LOGLEVEL:debug
     debug: _env:DEBUG:true
-    search_backend: _env:SEARCH_BACKEND:sqlalchemy
+    search_backend: _env:SEARCH_BACKEND:false
     storage_path: _env:STORAGE_PATH:/registry/data
 
 # This flavor is used by unit tests
