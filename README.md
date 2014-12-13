@@ -15,6 +15,7 @@ Using the `docker` command:
       -h "${CONTAINER}" \
       -p 443:443 \
       --volumes-from registrydata \
+      -e SERVER_NAME="localhost" \
       -e PASSWORD="root" \
       -d \
       simpledrupalcloud/registry:dev

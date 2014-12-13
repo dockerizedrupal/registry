@@ -6,6 +6,7 @@ registry:
   volumes_from:
     - registrydata
   environment:
+    - SERVER_NAME=localhost
     - PASSWORD=root
 registrydata:
   image: simpledrupalcloud/data:dev
