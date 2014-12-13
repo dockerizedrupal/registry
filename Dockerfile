@@ -15,4 +15,4 @@ VOLUME ["/registry/data"]
 
 EXPOSE 443
 
-CMD ["/src/run.sh"]
+CMD ["/bin/bash", "-l", "-c", "/src/run.sh"]
