@@ -1,7 +1,7 @@
 class registry::nginx {
   file { '/etc/nginx/conf.d/registry.conf':
     ensure => present,
-    source => 'puppet:///modules/registry/etc/nginx/conf.d/registry.conf',
+    content => template('registry/registry.conf.erb'),
     mode => 644
   }
 
