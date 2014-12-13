@@ -3,7 +3,7 @@ upstream registry {
 }
 
 server {
-  listen 443;
+  listen 443 ssl;
   server_name <%= @server_name %>
 
   client_max_body_size 0;
