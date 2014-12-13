@@ -3,7 +3,7 @@ upstream registry {
 }
 
 server {
-  listen 443 ssl;
+  listen 443 default_server ssl;
   server_name <%= @server_name %>
 
   ssl_certificate /etc/ssl/certs/nginx.crt;
