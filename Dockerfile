@@ -3,6 +3,7 @@ FROM simpledrupalcloud/nginx:dev
 MAINTAINER Simple Drupal Cloud <support@simpledrupalcloud.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV SETTINGS_FLAVOR registry
 
 ADD ./src /src
 
