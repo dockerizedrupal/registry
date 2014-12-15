@@ -1,5 +1,7 @@
 # docker-registry
 
+A [Docker](https://docker.com/) container for [Docker Registry](https://github.com/docker/docker-registry) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for Basic authentication.
+
 ## Run the container
 
 Using the `docker` command:
