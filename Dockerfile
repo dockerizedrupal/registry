@@ -13,6 +13,8 @@ RUN /src/build.sh
 RUN /src/clean.sh
 
 VOLUME ["/registry/data"]
+VOLUME ["/nginx/ssl/certs"]
+VOLUME ["/nginx/ssl/private"]
 
 EXPOSE 80
 EXPOSE 443
