@@ -10,7 +10,7 @@ Using the `docker` command:
       -v /registry/data \
       -v /nginx/ssl/certs \
       -v /nginx/ssl/private \
-      simpledrupalcloud/data:dev
+      simpledrupalcloud/data:latest
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
@@ -22,14 +22,13 @@ Using the `docker` command:
       -e USERNAME="root" \
       -e PASSWORD="root" \
       -d \
-      simpledrupalcloud/registry:dev
+      simpledrupalcloud/registry:latest
 
 Using the `fig` command
 
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && git checkout dev \
       && sudo fig up
 
 ## Build the image
@@ -37,8 +36,7 @@ Using the `fig` command
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && git checkout dev \
-      && sudo docker build -t simpledrupalcloud/registry:dev . \
+      && sudo docker build -t simpledrupalcloud/registry:latest . \
       && cd -
 
 ## Back up Registry data
@@ -47,7 +45,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:dev tar czvf /backup/registrydata.tar.gz /registry/data
+      simpledrupalcloud/data:latest tar czvf /backup/registrydata.tar.gz /registry/data
 
 ## Restore Registry data from a backup
 
@@ -55,7 +53,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:dev tar xzvf /backup/registrydata.tar.gz
+      simpledrupalcloud/data:latest tar xzvf /backup/registrydata.tar.gz
 
 ## License
 
