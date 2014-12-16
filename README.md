@@ -49,7 +49,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:dev tar czvf /backup/registrydata.tar.gz /registry/data
+      simpledrupalcloud/data:dev tar czvf /backup/registrydata.tar.gz /registry/data /nginx/ssl/certs /nginx/ssl/private
 
 ## Restore Registry data from a backup
 
