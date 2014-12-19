@@ -10,8 +10,8 @@ Using the `docker` command:
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry/data \
-      -v /nginx/ssl/certs \
-      -v /nginx/ssl/private \
+      -v /registry/ssl/certs \
+      -v /registry/ssl/private \
       simpledrupalcloud/data:latest
 
     CONTAINER="registry" && sudo docker run \
@@ -47,7 +47,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:latest tar czvf /backup/registrydata.tar.gz /registry/data
+      simpledrupalcloud/data:latest tar czvf /backup/registrydata.tar.gz /registry/data /registry/ssl/certs /registry/ssl/private
 
 ## Restore Registry data from a backup
 

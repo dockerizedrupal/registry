@@ -1,4 +1,4 @@
-FROM simpledrupalcloud/nginx:latest
+FROM simpledrupalcloud/base:latest
 
 MAINTAINER Simple Drupal Cloud <support@simpledrupalcloud.com>
 
@@ -13,8 +13,8 @@ RUN /src/build.sh
 RUN /src/clean.sh
 
 VOLUME ["/registry/data"]
-VOLUME ["/nginx/ssl/certs"]
-VOLUME ["/nginx/ssl/private"]
+VOLUME ["/registry/ssl/certs"]
+VOLUME ["/registry/ssl/private"]
 
 EXPOSE 80
 EXPOSE 443
