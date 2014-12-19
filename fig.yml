@@ -15,5 +15,5 @@ registrydata:
   hostname: registrydata
   volumes:
     - /registry/data
-    - /nginx/ssl/certs
-    - /nginx/ssl/private
+    - /registry/ssl/certs
+    - /registry/ssl/private
