@@ -4,7 +4,8 @@ class registry::packages {
       'python-dev',
       'libevent-dev',
       'liblzma-dev',
-      'apache2-utils'
+      'apache2-utils',
+      'swig'
     ]:
     ensure => present
   }
