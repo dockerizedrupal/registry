@@ -45,6 +45,12 @@ Using the `fig` command
       && sudo docker build -t simpledrupalcloud/registry:dev . \
       && cd -
 
+## Add certification authority (CA) certificate to your Docker host
+
+    sudo wget http://example.org -O /usr/local/share/ca-certificates/example.org.crt \
+      && sudo update-ca-certificates --fresh \
+      && sudo service docker restart
+
 ## Start the container automatically
 
     SERVER_NAME="localhost"
