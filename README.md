@@ -52,6 +52,7 @@ Using the `fig` command
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
+      && git checkout dev \
       && sudo cp ./fig.yml /opt/registry.yml \
       && sudo sed -i "s/localhost/${SERVER_NAME}/g" /opt/registry.yml \
       && sudo sed -i "s/USERNAME=root/USERNAME=${USERNAME}/g" /opt/registry.yml \
