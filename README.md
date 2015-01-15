@@ -2,6 +2,8 @@
 
 A [Docker](https://docker.com/) container for [Docker Registry](https://github.com/docker/docker-registry) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for Basic authentication.
 
+![example](/example.png)
+
 ## Run the container
 
 Using the `docker` command:
@@ -40,6 +42,12 @@ Using the `fig` command
       && cd "${TMP}" \
       && sudo docker build -t simpledrupalcloud/registry:latest . \
       && cd -
+
+## Add certification authority (CA) certificate to your Docker host
+
+    sudo wget http://example.org -O /usr/local/share/ca-certificates/example.org.crt \
+      && sudo update-ca-certificates --fresh \
+      && sudo service docker restart
 
 ## Start the container automatically
 
