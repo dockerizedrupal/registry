@@ -3,7 +3,7 @@ class registry {
   require registry::packages
   require registry::supervisor
 
-  exec { '/bin/su - root -c "pip install docker-registry"':
+  exec { '/bin/su - root -mc "pip install docker-registry"':
     timeout => 0
   }
 }
