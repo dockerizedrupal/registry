@@ -10,7 +10,7 @@ upstream registry {
 
 server {
   listen 443 ssl;
-  server_name <%= @server_name %>
+  server_name <%= @server_name %>;
 
   location / {
     auth_basic "Restricted";
