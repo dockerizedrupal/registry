@@ -41,6 +41,23 @@ Using the `fig` command
       && sudo docker build -t simpledrupalcloud/registry:latest . \
       && cd -
 
+## Start the container automatically
+
+    SERVER_NAME="localhost"
+    USERNAME="root"
+    PASSWORD="root"
+
+    TMP="$(mktemp -d)" \
+      && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
+      && cd "${TMP}" \
+      && git checkout dev \
+      && sudo cp ./fig.yml /opt/registry.yml \
+      && sudo sed -i "s/localhost/${SERVER_NAME}/g" /opt/registry.yml \
+      && sudo sed -i "s/USERNAME=root/USERNAME=${USERNAME}/g" /opt/registry.yml \
+      && sudo sed -i "s/PASSWORD=root/PASSWORD=${PASSWORD}/g" /opt/registry.yml \
+      && sudo cp ./registry.conf /etc/init/registry.conf \
+      && cd -
+
 ## Back up Registry data
 
     sudo docker run \
