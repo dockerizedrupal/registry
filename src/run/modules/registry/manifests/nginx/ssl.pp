@@ -34,7 +34,7 @@ class registry::nginx::ssl {
     require => File['/root/openssl.cnf']
   }
 
-  exec { "openssl x509 -req -in /registry/ssl/certs/registry.csr -CA /registry/ssl/certs/registryCA.crt -CAkey /registry/ssl/private/registryCA.key -CAcreateserial -out /registry/ssl/certs/registry.crt -days 365":
+  exec { "openssl -x509 -req -in /registry/ssl/certs/registry.csr -CA /registry/ssl/certs/registryCA.crt -CAkey /registry/ssl/private/registryCA.key -CAcreateserial -out /registry/ssl/certs/registry.crt -days 365":
     timeout => 0,
     path => ['/usr/bin'],
     require => Exec["openssl req -sha256 -new -key /registry/ssl/private/registry.key -config /root/openssl.cnf -out /registry/ssl/certs/registry.csr"]
