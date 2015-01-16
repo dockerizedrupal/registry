@@ -49,6 +49,11 @@ Using the `fig` command
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
 
+
+
+    sudo pip install certifi \
+      && curl http://example.org | sudo tee -a /usr/local/lib/python2.7/dist-packages/certifi/cacert.pem
+
 ## Start the container automatically
 
     SERVER_NAME="localhost"
