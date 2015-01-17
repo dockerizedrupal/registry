@@ -10,7 +10,7 @@ class registry::nginx::ssl {
     require => File['/root/opensslCA.cnf']
   }
 
-  exec { "openssl req -sha256 -x509 -new -days 3650 -extensions v3_ca -key /registry/ssl/private/registryCA.key -config /root/opensslCA.cnf -out /registry/ssl/certs/registryCA.crt":
+  exec { "openssl req -sha256 -x509 -new -days 3650 -extensions v3_ca -config /root/opensslCA.cnf -key /registry/ssl/private/registryCA.key -out /registry/ssl/certs/registryCA.crt":
     timeout => 0,
     path => ['/usr/bin'],
     require => Exec['openssl genrsa -out /registry/ssl/private/registryCA.key 4096']
@@ -19,7 +19,7 @@ class registry::nginx::ssl {
   exec { 'openssl genrsa -out /registry/ssl/private/registry.key 4096':
     timeout => 0,
     path => ['/usr/bin'],
-    require => Exec["openssl req -sha256 -x509 -new -days 3650 -extensions v3_ca -key /registry/ssl/private/registryCA.key -config /root/opensslCA.cnf -out /registry/ssl/certs/registryCA.crt"]
+    require => Exec["openssl req -sha256 -x509 -new -days 3650 -extensions v3_ca -config /root/opensslCA.cnf -key /registry/ssl/private/registryCA.key -out /registry/ssl/certs/registryCA.crt"]
   }
 
   file { '/root/openssl.cnf':
@@ -28,15 +28,15 @@ class registry::nginx::ssl {
     require => Exec['openssl genrsa -out /registry/ssl/private/registry.key 4096']
   }
 
-  exec { "openssl req -sha256 -new -key /registry/ssl/private/registry.key -config /root/openssl.cnf -out /registry/ssl/certs/registry.csr":
+  exec { "openssl req -sha256 -new -config /root/openssl.cnf -key /registry/ssl/private/registry.key -out /registry/ssl/certs/registry.csr":
     timeout => 0,
     path => ['/usr/bin'],
     require => File['/root/openssl.cnf']
   }
 
-  exec { "openssl x509 -req -sha256 -in /registry/ssl/certs/registry.csr -CA /registry/ssl/certs/registryCA.crt -CAkey /registry/ssl/private/registryCA.key -CAcreateserial -config /root/opensslCA.cnf -out /registry/ssl/certs/registry.crt":
+  exec { "openssl x509 -req -sha256 -CAcreateserial -days 3650 -extensions v3_req -extfile /root/opensslCA.cnf -in /registry/ssl/certs/registry.csr -CA /registry/ssl/certs/registryCA.crt -CAkey /registry/ssl/private/registryCA.key -out /registry/ssl/certs/registry.crt":
     timeout => 0,
     path => ['/usr/bin'],
-    require => Exec["openssl req -sha256 -new -key /registry/ssl/private/registry.key -config /root/openssl.cnf -out /registry/ssl/certs/registry.csr"]
+    require => Exec["openssl req -sha256 -new -config /root/openssl.cnf -key /registry/ssl/private/registry.key -out /registry/ssl/certs/registry.csr"]
   }
 }
