@@ -76,7 +76,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:latest tar czvf /backup/registrydata.tar.gz /registry/data /registry/ssl/certs /registry/ssl/private
+      simpledrupalcloud/base:latest tar czvf /backup/registrydata.tar.gz /registry/data /registry/ssl/certs /registry/ssl/private
 
 ## Restore Registry data from a backup
 
@@ -84,7 +84,7 @@ Using the `fig` command
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/data:latest tar xzvf /backup/registrydata.tar.gz
+      simpledrupalcloud/base:latest tar xzvf /backup/registrydata.tar.gz
 
 ## License
 
