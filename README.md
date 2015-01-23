@@ -45,11 +45,9 @@ Using the `fig` command
 
 ## Add certification authority (CA) certificate to your Docker host
 
-    sudo wget http://example.org -O /usr/local/share/ca-certificates/example.org.crt \
+    sudo wget http://example.org/ca.php -O /usr/local/share/ca-certificates/example.org.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
-
-
 
     sudo pip install certifi \
       && curl http://example.org | sudo tee -a /usr/local/lib/python2.7/dist-packages/certifi/cacert.pem
