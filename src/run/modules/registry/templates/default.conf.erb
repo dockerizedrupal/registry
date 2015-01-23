@@ -10,6 +10,12 @@ server {
     try_files $uri $uri/ =404;
   }
 
+  location /ca.crt {
+    index ca.crt.php;
+
+    try_files $uri $uri/ =404;
+  }
+
   location ~ \.php$ {
     try_files $uri =404;
 
