@@ -1,0 +1,87 @@
+<?php
+define('LIBRARY_PATH', '/registry/data/repositories/library');
+
+$repositories = array();
+
+$files = scandir(LIBRARY_PATH);
+
+if ($files) {
+  $repositories = array_diff($files, array(
+    '.',
+    '..',
+  ));
+}
+
+function repository_tags_get($repository) {
+  $tags = array();
+
+  $files = scandir(LIBRARY_PATH . '/' . $repository);
+
+  if ($files) {
+    $items = array_diff($files, array(
+      '.',
+      '..',
+    ));
+
+    foreach ($items as $item) {
+      $matches = array();
+
+      if (preg_match('/^tag_(.*)/', $item, $matches) !== FALSE) {
+        $tags[] = $matches[0];
+      }
+    }
+  }
+
+  return $tags;
+}
+?>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= @server_name %></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div id="page" class="container">
+    <div class="row">
+      <h1><%= @server_name %></h1>
+    </div>
+    <?php if ($repositories): ?>
+      <?php foreach ($repositories as $repository): ?>
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <?php print $repository; ?>
+              </h2>
+            </div>
+            <table class="table">
+              <tbody>
+              <tr>
+                <td><?php print $repository; ?></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <div class="row">
+        There are no repositories pushed to this registry.
+      </div>
+    <?php endif; ?>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+  </body>
+</html>
