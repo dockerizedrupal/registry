@@ -13,9 +13,7 @@ RUN apt-get update
 RUN /src/build.sh
 RUN /src/clean.sh
 
-VOLUME ["/registry/data"]
-VOLUME ["/registry/ssl/certs"]
-VOLUME ["/registry/ssl/private"]
+VOLUME ["/registry"]
 
 EXPOSE 80
 EXPOSE 443

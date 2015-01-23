@@ -1,7 +1,22 @@
 class registry::nginx::ssl {
+  exec { 'mkdir -p /registry/ssl':
+    path => ['/bin']
+  }
+
+  exec { 'mkdir -p /registry/ssl/private':
+    path => ['/bin'],
+    require => Exec['mkdir -p /registry/ssl']
+  }
+
+  exec { 'mkdir -p /registry/ssl/certs':
+    path => ['/bin'],
+    require => Exec['mkdir -p /registry/private']
+  }
+
   file { '/root/opensslCA.cnf':
     ensure => present,
-    content => template('registry/opensslCA.cnf.erb')
+    content => template('registry/opensslCA.cnf.erb'),
+    require => Exec['mkdir -p /registry/certs']
   }
 
   exec { 'openssl genrsa -out /registry/ssl/private/registryCA.key 4096':
