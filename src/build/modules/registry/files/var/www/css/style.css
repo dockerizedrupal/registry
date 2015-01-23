@@ -13,25 +13,10 @@ h1 {
   text-transform: uppercase;
 }
 
-.panel-title .glyphicon {
-  margin-left: 5px;
-}
-
 .list-group {
   margin-bottom: 0;
 }
 
-.column-1 {
-  width: 15%;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.table > tbody > tr > td.column-1 {
+.table > tbody > tr > td {
   vertical-align: middle;
-}
-
-.column-2 {
-  width: 85%;
-  text-align: left;
 }

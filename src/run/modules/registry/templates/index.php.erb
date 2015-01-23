@@ -1,39 +1,53 @@
 <?php
 define('LIBRARY_PATH', '/registry/data/repositories/library');
 
-$repositories = array();
+function repositories_get() {
+  $items = scandir(LIBRARY_PATH);
 
-$files = scandir(LIBRARY_PATH);
-
-if ($files) {
-  $repositories = array_diff($files, array(
+  $items = array_diff($items, array(
     '.',
     '..',
   ));
-}
 
-function repository_tags_get($repository) {
-  $tags = array();
+  $repositories = array();
 
-  $files = scandir(LIBRARY_PATH . '/' . $repository);
+  foreach ($items as $repository) {
+    $tags = repository_tags_get($repository);
 
-  if ($files) {
-    $items = array_diff($files, array(
-      '.',
-      '..',
-    ));
+    if ($tags) {
+      ksort($tags);
 
-    foreach ($items as $item) {
-      $matches = array();
-
-      if (preg_match('/^tag_(.*)/', $item, $matches) !== FALSE) {
-        $tags[] = $matches[0];
-      }
+      $repositories[$repository] = $tags;
     }
   }
 
-  return $tags;
+  return $repositories;
 }
+
+function repository_tags_get($repository) {
+  $items = scandir(LIBRARY_PATH . '/' . $repository);
+
+  $items = array_diff($items, array(
+    '.',
+    '..',
+  ));
+
+  $tags = array();
+
+  foreach ($items as $tag) {
+    $matches = array();
+
+    if (preg_match('/^tag_(.*)/', $tag, $matches) !== FALSE) {
+      $tags[] = $matches[0];
+    }
+  }
+
+  return array_combine($tags, $tags);
+}
+
+$repositories = repositories_get();
+
+ksort($repositories);
 ?>
 <!DOCTYPE html>
 
@@ -56,7 +70,7 @@ function repository_tags_get($repository) {
       <h1><%= @server_name %></h1>
     </div>
     <?php if ($repositories): ?>
-      <?php foreach ($repositories as $repository): ?>
+      <?php foreach ($repositories as $repository => $tags): ?>
         <div class="row">
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -66,9 +80,11 @@ function repository_tags_get($repository) {
             </div>
             <table class="table">
               <tbody>
-              <tr>
-                <td><?php print $repository; ?></td>
-              </tr>
+                <?php foreach ($tags as $tag): ?>
+                  <tr>
+                    <td class="column-1"><?php print $tag; ?></td>
+                  </tr>
+                <?php endforeach; ?>
               </tbody>
             </table>
           </div>
