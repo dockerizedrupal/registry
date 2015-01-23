@@ -37,8 +37,8 @@ function repository_tags_get($repository) {
   foreach ($items as $tag) {
     $matches = array();
 
-    if (preg_match('/^tag_(.*)/', $tag, $matches) !== FALSE) {
-      $tags[] = $matches[0];
+    if (preg_match('/^tag_(.*)/', $tag, $matches)) {
+      $tags[] = $matches[1];
     }
   }
 
@@ -82,7 +82,7 @@ ksort($repositories);
               <tbody>
                 <?php foreach ($tags as $tag): ?>
                   <tr>
-                    <td class="column-1"><?php print $tag; ?></td>
+                    <td class="column-1"><%= @server_name %>/<?php print $repository; ?>:<?php print $tag; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
