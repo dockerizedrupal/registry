@@ -82,7 +82,7 @@ ksort($repositories);
               <tbody>
                 <?php foreach ($tags as $tag): ?>
                   <tr>
-                    <td class="column-1"><%= @server_name %>/<?php print $repository; ?>:<?php print $tag; ?></td>
+                    <td><?php print $tag; ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
