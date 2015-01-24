@@ -49,7 +49,7 @@ Using the `fig` command
 
 ## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the registry securely
 
-    sudo wget --no-check-certificate http://example.org/ca.php -O /usr/local/share/ca-certificates/example.org.crt \
+    sudo wget --no-check-certificate http://example.org/ca -O /usr/local/share/ca-certificates/example.org.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
 
