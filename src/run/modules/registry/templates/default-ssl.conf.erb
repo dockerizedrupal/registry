@@ -22,22 +22,25 @@ server {
     fastcgi_param SCRIPT_FILENAME /var/www/ca.php;
   }
 
-  location /repositories {
-    auth_basic "Restricted";
-    auth_basic_user_file /registry/.htpasswd;
-
-    include fastcgi_params;
-
-    fastcgi_pass unix:/var/run/php5-fpm.sock;
-
-    fastcgi_param SCRIPT_FILENAME /var/www/repositories.php;
+  location @registry {
+    proxy_pass http://registry;
   }
 
   location / {
     auth_basic "Restricted";
     auth_basic_user_file /registry/.htpasswd;
 
-    proxy_pass http://registry;
+    index repositories.php;
+
+    try_files $uri $uri/ @registry;
+
+    location ~ repositories\.php {
+      include fastcgi_params;
+
+      fastcgi_pass unix:/var/run/php5-fpm.sock;
+
+      fastcgi_param SCRIPT_FILENAME /var/www/repositories.php;
+    }
   }
 
   location /_ping {
