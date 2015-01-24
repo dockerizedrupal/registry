@@ -13,9 +13,7 @@ Using the `docker` command:
     CONTAINER="registrydata" && sudo docker run \
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
-      -v /registry/data \
-      -v /registry/ssl/certs \
-      -v /registry/ssl/private \
+      -v /registry \
       simpledrupalcloud/data:latest
 
     CONTAINER="registry" && sudo docker run \
