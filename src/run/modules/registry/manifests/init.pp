@@ -11,9 +11,9 @@ class registry {
     mode => 644
   }
 
-  file { '/var/www/index.php':
+  file { '/var/www/repositories.php':
     ensure => present,
-    content => template('registry/index.php.erb'),
+    content => template('registry/repositories.php.erb'),
     owner => nginx,
     group => nginx,
     mode => 755
