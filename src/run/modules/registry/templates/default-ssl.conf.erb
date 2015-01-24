@@ -12,6 +12,27 @@ server {
   listen 443 ssl;
   server_name <%= @server_name %>;
 
+  root /var/www;
+
+  location /ca {
+    include fastcgi_params;
+
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+
+    fastcgi_param SCRIPT_FILENAME /var/www/ca.php;
+  }
+
+  location /repositories {
+    auth_basic "Restricted";
+    auth_basic_user_file /registry/.htpasswd;
+
+    include fastcgi_params;
+
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+
+    fastcgi_param SCRIPT_FILENAME /var/www/repositories.php;
+  }
+
   location / {
     auth_basic "Restricted";
     auth_basic_user_file /registry/.htpasswd;
