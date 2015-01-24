@@ -2,7 +2,9 @@
 
 A [Docker](https://docker.com/) container for [Docker Registry](https://github.com/docker/docker-registry) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for Basic authentication.
 
-![example](/example.png)
+![example1](/example1.png)
+
+![example2](/example2.png)
 
 ## Run the container
 
@@ -48,9 +50,6 @@ Using the `fig` command
     sudo wget --no-check-certificate http://example.org/ca.php -O /usr/local/share/ca-certificates/example.org.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
-
-    sudo pip install certifi \
-      && curl http://example.org | sudo tee -a /usr/local/lib/python2.7/dist-packages/certifi/cacert.pem
 
 ## Start the container automatically
 
