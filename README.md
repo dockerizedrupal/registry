@@ -43,9 +43,9 @@ Using the `fig` command
       && sudo docker build -t simpledrupalcloud/registry:latest . \
       && cd -
 
-## Add certification authority (CA) certificate to your Docker host
+## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the registry securely
 
-    sudo wget http://example.org/ca.php -O /usr/local/share/ca-certificates/example.org.crt \
+    sudo wget --no-check-certificate http://example.org/ca.php -O /usr/local/share/ca-certificates/example.org.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
 
