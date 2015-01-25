@@ -45,11 +45,17 @@ Using the `fig` command
       && sudo docker build -t simpledrupalcloud/registry:dev . \
       && cd -
 
-## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the registry securely
+## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the private registry securely
 
-    sudo wget --no-check-certificate http://example.org/ca -O /usr/local/share/ca-certificates/example.org.crt \
+    sudo wget --no-check-certificate https://localhost/ca -O /usr/local/share/ca-certificates/localhost.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
+
+If you are orchestrating Docker containers using [Fig](http://www.fig.sh/) you need to log in to private registry as follows:
+
+    docker login https://localhost/v1/
+
+You can read about the open issue more from here https://github.com/docker/fig/issues/75.
 
 ## Start the container automatically
 
