@@ -51,7 +51,7 @@ Using the `fig` command
 
 If you are orchestrating Docker containers using [Fig](http://www.fig.sh/) you need to log in to private registry as follows:
 
-    docker login https://localhost/v1/
+    sudo docker login https://localhost/v1/
 
 You can read about the open issue more from here https://github.com/docker/fig/issues/75.
 
