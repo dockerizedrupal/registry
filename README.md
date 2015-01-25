@@ -80,7 +80,7 @@ You can read about the open issue more from here https://github.com/docker/fig/i
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/base:dev tar czvf /backup/registrydata.tar.gz /registry/data /registry/ssl/certs /registry/ssl/private
+      simpledrupalcloud/base:dev tar czvf /backup/registrydata.tar.gz /registry
 
 ## Restore Registry data from a backup
 
