@@ -59,7 +59,7 @@ You can read about the open issue more from here https://github.com/docker/fig/i
 
 ## Creating new or updating existing users passwords
 
-    exec -i -t registry htpasswd /registry/.htpasswd username
+    sudo docker exec -i -t registry htpasswd /registry/.htpasswd username
 
 ## Start the container automatically
 
