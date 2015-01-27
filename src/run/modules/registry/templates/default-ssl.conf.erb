@@ -30,16 +30,16 @@ server {
     auth_basic "Restricted";
     auth_basic_user_file /registry/.htpasswd;
 
-    index repositories.php;
+    index index.php;
 
     try_files $uri $uri/ @registry;
 
-    location ~ repositories\.php {
+    location ~ index\.php {
       include fastcgi_params;
 
       fastcgi_pass unix:/var/run/php5-fpm.sock;
 
-      fastcgi_param SCRIPT_FILENAME /var/www/repositories.php;
+      fastcgi_param SCRIPT_FILENAME /var/www/index.php;
     }
   }
 
