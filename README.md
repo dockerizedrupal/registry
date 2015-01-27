@@ -57,6 +57,10 @@ If you are orchestrating Docker containers using [Fig](http://www.fig.sh/) you n
 
 You can read about the open issue more from here https://github.com/docker/fig/issues/75.
 
+## Creating new or updating existing users passwords
+
+    exec -i -t registry htpasswd /registry/.htpasswd username
+
 ## Start the container automatically
 
     SERVER_NAME="localhost"
