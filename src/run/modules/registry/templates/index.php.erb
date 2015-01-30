@@ -45,6 +45,18 @@ function repository_tags_get($repository) {
   return array_combine($tags, $tags);
 }
 
+function tag_last_updated_get($repository, $tag) {
+  $file_path = LIBRARY_PATH . '/' . $repository . '/tag' . $tag . '_json';
+
+  if (file_exists($file_path)) {
+    $file_contents = file_get_contents($file_path);
+
+    $info = json_decode($file_contents, TRUE);
+
+    return $info['last_update'];
+  }
+}
+
 $repositories = repositories_get();
 
 ksort($repositories);
@@ -56,7 +68,7 @@ ksort($repositories);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= @server_name %></title>
+    <title>registry.fenomen.ee</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -67,7 +79,7 @@ ksort($repositories);
   <body>
   <div id="page" class="container">
     <div class="row">
-      <h1><%= @server_name %></h1>
+      <h1>registry.fenomen.ee</h1>
     </div>
     <?php if ($repositories): ?>
       <?php foreach ($repositories as $repository => $tags): ?>
@@ -78,11 +90,18 @@ ksort($repositories);
                 <?php print $repository; ?>
               </h2>
             </div>
-            <table class="table">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Tag</th>
+                  <th>Last updated</th>
+                </tr>
+              </thead>
               <tbody>
                 <?php foreach ($tags as $tag): ?>
                   <tr>
                     <td><?php print $tag; ?></td>
+                    <td class="tag-last-updated"><?php print tag_last_updated_get($repository, $tag); ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
