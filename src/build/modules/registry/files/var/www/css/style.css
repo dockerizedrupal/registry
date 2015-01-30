@@ -8,6 +8,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+th {
+  text-align: center;
+}
+
 .panel-title {
   font-weight: bold;
   text-transform: uppercase;
@@ -17,6 +21,8 @@ h1 {
   margin-bottom: 0;
 }
 
+.table > thead > tr > th,
 .table > tbody > tr > td {
   vertical-align: middle;
+  width: 50%;
 }
