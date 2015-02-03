@@ -7,7 +7,7 @@
 
       var d = new Date(timestamp * 1000);
 
-      return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('.') + ' ' + [d.getHours(), d.getMinutes(), d.getSeconds()].join(':');
+      return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('.') + ' ' + [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
     }
 
     $('.tag-last-updated').each(function() {
