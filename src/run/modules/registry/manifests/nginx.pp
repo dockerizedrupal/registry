@@ -15,8 +15,10 @@ class registry::nginx {
     mode => 644
   }
 
-  exec { "htpasswd -b -c /registry/.htpasswd '$username' '$password'":
-    timeout => 0,
-    path => ['/usr/bin']
+  if ! file_exists('/registry/.htpasswd') {
+    exec { "htpasswd -b -c /registry/.htpasswd '$username' '$password'":
+      timeout => 0,
+      path => ['/usr/bin']
+    }
   }
 }
