@@ -8,10 +8,7 @@ ENV SETTINGS_FLAVOR registry
 
 ADD ./src /src
 
-RUN apt-get update
-
-RUN /src/build.sh
-RUN /src/clean.sh
+RUN apt-get update && /src/build.sh && /src/clean.sh
 
 VOLUME ["/registry"]
 
