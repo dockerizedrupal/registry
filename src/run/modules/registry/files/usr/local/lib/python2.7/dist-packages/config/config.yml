@@ -1,6 +1,0 @@
-registry: &common
-    standalone: true
-    loglevel: info
-    search_backend: false
-    storage: local
-    storage_path: /registry/data
