@@ -7,7 +7,7 @@ class registry {
 
   file { '/usr/local/lib/python2.7/dist-packages/config/config.yml':
     ensure => present,
-    source => 'puppet:///modules/registry/usr/local/lib/python2.7/dist-packages/config/config.yml',
+    content => template('registry/config.yml.erb'),
     mode => 644
   }
 

@@ -1,0 +1,21 @@
+<% if @storage == "local" %>
+registry: &common
+  storage: local
+  standalone: true
+  loglevel: info
+  search_backend: false
+  storage_path: /registry/data
+<% end %>
+
+<% if @storage == "s3" %>
+registry: &common
+  storage: s3
+  s3_region: <%= @s3_region %>
+  s3_bucket: <%= @s3_bucket %>
+  s3_access_key: <%= @s3_aws_access_key_id %>
+  s3_secret_key: <%= @s3_aws_secret_access_key %>
+  standalone: true
+  loglevel: info
+  search_backend: false
+  storage_path: /registry/data
+<% end %>
