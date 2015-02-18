@@ -26,6 +26,8 @@ registrydata_containers() {
   echo "$(sudo docker ps -a | grep registrydata | awk '{ print $1 }')"
 }
 
+shopt -s nullglob
+
 if [ "${1}" = "backup" ]; then
   CONTAINERS="$(registrydata_containers)"
 
