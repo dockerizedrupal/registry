@@ -16,9 +16,8 @@ class registry::nginx {
   }
 
   if ! file_exists('/registry/.htpasswd') {
-    exec { "htpasswd -b -c /registry/.htpasswd '$username' '$password'":
-      timeout => 0,
-      path => ['/usr/bin']
+    bash_exec { "htpasswd -b -c /registry/.htpasswd '$username' '$password'":
+      timeout => 0
     }
   }
 }

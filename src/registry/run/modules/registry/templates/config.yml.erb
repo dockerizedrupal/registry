@@ -1,13 +1,11 @@
-<% if @storage == "local" %>
+<%- if @storage == "local" -%>
 registry: &common
   storage: local
   standalone: true
   loglevel: info
   search_backend: false
   storage_path: /registry/data
-<% end %>
-
-<% if @storage == "s3" %>
+<%- elsif  @storage == "s3" -%>
 registry: &common
   storage: s3
   s3_region: <%= @s3_region %>
@@ -18,4 +16,4 @@ registry: &common
   loglevel: info
   search_backend: false
   storage_path: /registry/data
-<% end %>
+<%- end -%>
