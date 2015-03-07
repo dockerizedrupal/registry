@@ -10,7 +10,6 @@ registry:
     - SERVER_NAME=localhost
     - USERNAME=root
     - PASSWORD=root
-    - STORAGE=local
 registrydata:
   image: simpledrupalcloud/data:dev
   hostname: registrydata
