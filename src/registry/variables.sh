@@ -28,7 +28,3 @@ export FACTER_S3_REGION="${S3_REGION}"
 export FACTER_S3_BUCKET="${S3_BUCKET}"
 export FACTER_S3_AWS_ACCESS_KEY_ID="${S3_AWS_ACCESS_KEY_ID}"
 export FACTER_S3_AWS_SECRET_ACCESS_KEY="${S3_AWS_SECRET_ACCESS_KEY}"
-
-puppet apply --modulepath=/src/run/modules /src/run/run.pp
-
-/usr/bin/supervisord
