@@ -14,7 +14,7 @@ Using the `docker` command:
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      simpledrupalcloud/data:latest
+      viljaste/data:latest
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
@@ -26,7 +26,7 @@ Using the `docker` command:
       -e USERNAME="root" \
       -e PASSWORD="root" \
       -d \
-      simpledrupalcloud/registry:latest
+      viljaste/registry:latest
 
 Using the `fig` command
 
@@ -40,7 +40,7 @@ Using the `fig` command
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && sudo docker build -t simpledrupalcloud/registry:latest . \
+      && sudo docker build -t viljaste/registry:latest . \
       && cd -
 
 ## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the private registry securely
@@ -81,7 +81,7 @@ You can read about the open issue more from here https://github.com/docker/fig/i
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/base:latest tar czvf /backup/registrydata.tar.gz /registry
+      viljaste/base:latest tar czvf /backup/registrydata.tar.gz /registry
 
 ## Restore Registry data from a backup
 
@@ -89,7 +89,7 @@ You can read about the open issue more from here https://github.com/docker/fig/i
       --rm \
       --volumes-from registrydata \
       -v $(pwd):/backup \
-      simpledrupalcloud/base:latest tar xzvf /backup/registrydata.tar.gz
+      viljaste/base:latest tar xzvf /backup/registrydata.tar.gz
 
 ## License
 

@@ -1,5 +1,5 @@
 registry:
-  image: simpledrupalcloud/registry:dev
+  image: viljaste/registry:dev
   hostname: registry
   ports:
     - "80:80"
