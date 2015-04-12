@@ -1,5 +1,5 @@
 registry:
-  image: simpledrupalcloud/registry:dev
+  image: viljaste/registry:dev
   hostname: registry
   ports:
     - "80:80"
@@ -11,7 +11,7 @@ registry:
     - USERNAME=root
     - PASSWORD=root
 registrydata:
-  image: simpledrupalcloud/data:dev
+  image: viljaste/data:dev
   hostname: registrydata
   volumes:
     - /registry
