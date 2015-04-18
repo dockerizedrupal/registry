@@ -1,13 +1,13 @@
 #!/usr/bin/env bats
 
-FIG_FILE="${BATS_TEST_DIRNAME}/registry.yml"
+DOCKER_COMPOSE_FILE="${BATS_TEST_DIRNAME}/registry.yml"
 
 container() {
-  echo "$(fig -f ${FIG_FILE} ps registry | grep registry | awk '{ print $1 }')"
+  echo "$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps registry | grep registry | awk '{ print $1 }')"
 }
 
 setup() {
-  fig -f "${FIG_FILE}" up -d --allow-insecure-ssl
+  docker-compose -f "${DOCKER_COMPOSE_FILE}" up -d --allow-insecure-ssl
 
   sleep 10
 
@@ -17,8 +17,8 @@ setup() {
 }
 
 teardown() {
-  fig -f "${FIG_FILE}" kill
-  fig -f "${FIG_FILE}" rm --force
+  docker-compose -f "${DOCKER_COMPOSE_FILE}" kill
+  docker-compose -f "${DOCKER_COMPOSE_FILE}" rm --force
 
   rm /usr/local/share/ca-certificates/localhost.crt
   update-ca-certificates --fresh
