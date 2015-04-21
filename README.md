@@ -61,38 +61,13 @@ You can read about the open issue more from here https://github.com/docker/fig/i
 
     sudo docker exec -i -t registry htpasswd /registry/.htpasswd username
 
-## Start the container automatically
-
-    SERVER_NAME="localhost"
-    USERNAME="root"
-    PASSWORD="root"
-
-    TMP="$(mktemp -d)" \
-      && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
-      && cd "${TMP}" \
-      && git checkout dev \
-      && sudo cp ./fig.yml /opt/registry.yml \
-      && sudo sed -i "s/localhost/${SERVER_NAME}/g" /opt/registry.yml \
-      && sudo sed -i "s/USERNAME=root/USERNAME=${USERNAME}/g" /opt/registry.yml \
-      && sudo sed -i "s/PASSWORD=root/PASSWORD=${PASSWORD}/g" /opt/registry.yml \
-      && sudo cp ./registry.conf /etc/init/registry.conf \
-      && cd -
-
 ## Back up Registry data
 
-    sudo docker run \
-      --rm \
-      --volumes-from registrydata \
-      -v $(pwd):/backup \
-      viljaste/base:dev tar czvf /backup/registrydata.tar.gz /registry
-
+    sudo tools/registrydata backup
+    
 ## Restore Registry data from a backup
 
-    sudo docker run \
-      --rm \
-      --volumes-from registrydata \
-      -v $(pwd):/backup \
-      viljaste/base:dev tar xzvf /backup/registrydata.tar.gz
+    sudo tools/registrydata restore
 
 ## License
 

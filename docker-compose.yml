@@ -1,6 +1,7 @@
 registry:
   image: viljaste/registry:dev
   hostname: registry
+  restart: always
   ports:
     - "80:80"
     - "443:443"
