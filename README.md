@@ -14,7 +14,7 @@ Using the `docker` command:
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      viljaste/data:latest
+      viljaste/data:dev
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
@@ -26,13 +26,14 @@ Using the `docker` command:
       -e USERNAME="root" \
       -e PASSWORD="root" \
       -d \
-      viljaste/registry:latest
+      viljaste/registry:dev
 
 Using the `fig` command
 
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
+      && git checkout dev \
       && sudo fig up
 
 ## Build the image
@@ -40,7 +41,8 @@ Using the `fig` command
     TMP="$(mktemp -d)" \
       && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && sudo docker build -t viljaste/registry:latest . \
+      && git checkout dev \
+      && sudo docker build -t viljaste/registry:dev . \
       && cd -
 
 ## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the private registry securely
@@ -59,37 +61,13 @@ You can read about the open issue more from here https://github.com/docker/fig/i
 
     sudo docker exec -i -t registry htpasswd /registry/.htpasswd username
 
-## Start the container automatically
-
-    SERVER_NAME="localhost"
-    USERNAME="root"
-    PASSWORD="root"
-
-    TMP="$(mktemp -d)" \
-      && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
-      && cd "${TMP}" \
-      && sudo cp ./fig.yml /opt/registry.yml \
-      && sudo sed -i "s/localhost/${SERVER_NAME}/g" /opt/registry.yml \
-      && sudo sed -i "s/USERNAME=root/USERNAME=${USERNAME}/g" /opt/registry.yml \
-      && sudo sed -i "s/PASSWORD=root/PASSWORD=${PASSWORD}/g" /opt/registry.yml \
-      && sudo cp ./registry.conf /etc/init/registry.conf \
-      && cd -
-
 ## Back up Registry data
 
-    sudo docker run \
-      --rm \
-      --volumes-from registrydata \
-      -v $(pwd):/backup \
-      viljaste/base:latest tar czvf /backup/registrydata.tar.gz /registry
-
+    sudo tools/registrydata backup
+    
 ## Restore Registry data from a backup
 
-    sudo docker run \
-      --rm \
-      --volumes-from registrydata \
-      -v $(pwd):/backup \
-      viljaste/base:latest tar xzvf /backup/registrydata.tar.gz
+    sudo tools/registrydata restore
 
 ## License
 
