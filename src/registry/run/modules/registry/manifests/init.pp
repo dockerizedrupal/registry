@@ -1,19 +1,19 @@
 class registry {
-  require registry::nginx
+#  require registry::nginx
 
-  bash_exec { 'mkdir -p /registry/data': }
+  bash_exec { 'mkdir -p /registry/data/v2': }
 
-  file { '/usr/local/lib/python2.7/dist-packages/config/config.yml':
-    ensure => present,
-    source => 'puppet:///modules/registry/usr/local/lib/python2.7/dist-packages/config/config.yml',
-    mode => 644
-  }
-
-  file { '/var/www/index.php':
-    ensure => present,
-    content => template('registry/index.php.erb'),
-    owner => nginx,
-    group => nginx,
-    mode => 755
-  }
+#  file { '/usr/local/lib/python2.7/dist-packages/config/config.yml':
+#    ensure => present,
+#    source => 'puppet:///modules/registry/usr/local/lib/python2.7/dist-packages/config/config.yml',
+#    mode => 644
+#  }
+#
+#  file { '/var/www/index.php':
+#    ensure => present,
+#    content => template('registry/index.php.erb'),
+#    owner => nginx,
+#    group => nginx,
+#    mode => 755
+#  }
 }

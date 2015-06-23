@@ -2,10 +2,6 @@
 
 A [Docker](https://docker.com/) container for [Docker Registry](https://github.com/docker/docker-registry) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for Basic authentication.
 
-![example2](/example2.png)
-
-![example1](/example1.png)
-
 ## Run the container
 
 Using the `docker` command:
@@ -14,7 +10,7 @@ Using the `docker` command:
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      viljaste/data:dev
+      viljaste/data:latest
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
@@ -23,26 +19,25 @@ Using the `docker` command:
       -p 443:443 \
       --volumes-from registrydata \
       -e SERVER_NAME="localhost" \
+      -e PROTOCOLS="https" \
       -e USERNAME="root" \
       -e PASSWORD="root" \
       -d \
-      viljaste/registry:dev
+      viljaste/registry:latest
 
-Using the `fig` command
+Using the `docker-compose` command
 
     TMP="$(mktemp -d)" \
-      && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
+      && GIT_SSL_NO_VERIFY=true git clone https://git.beyondcloud.io/viljaste/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && git checkout dev \
-      && sudo fig up
+      && sudo docker-compose up
 
 ## Build the image
 
     TMP="$(mktemp -d)" \
-      && git clone http://git.simpledrupalcloud.com/simpledrupalcloud/docker-registry.git "${TMP}" \
+      && GIT_SSL_NO_VERIFY=true git clone https://git.beyondcloud.io/viljaste/docker-registry.git "${TMP}" \
       && cd "${TMP}" \
-      && git checkout dev \
-      && sudo docker build -t viljaste/registry:dev . \
+      && sudo docker build -t viljaste/registry:latest . \
       && cd -
 
 ## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the private registry securely
@@ -50,12 +45,6 @@ Using the `fig` command
     sudo wget --no-check-certificate https://localhost/ca -O /usr/local/share/ca-certificates/localhost.crt \
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
-
-If you are orchestrating Docker containers using [Fig](http://www.fig.sh/) you need to log in to private registry as follows:
-
-    sudo docker login https://localhost/v1/
-
-You can read about the open issue more from here https://github.com/docker/fig/issues/75.
 
 ## Creating new or updating existing users passwords
 
