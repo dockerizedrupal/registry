@@ -19,7 +19,7 @@ Using the `docker` command:
       -p 443:443 \
       --volumes-from registrydata \
       -e SERVER_NAME="localhost" \
-      -e PROTOCOLS="https" \
+      -e TIMEOUT="900" \
       -e USERNAME="root" \
       -e PASSWORD="root" \
       -d \

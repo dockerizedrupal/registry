@@ -4,7 +4,6 @@ class registry::v1::packages {
       'python-dev',
       'libevent-dev',
       'liblzma-dev',
-      'apache2-utils',
       'swig',
       'python-pip'
     ]:

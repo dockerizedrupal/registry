@@ -49,7 +49,7 @@ if [ "${1}" = "backup" ]; then
         --rm \
         --volumes-from "${CONTAINER}" \
         -v "${WORKING_DIR}:/backup" \
-      --entrypoint /bin/bash \
+        --entrypoint /bin/bash \
         viljaste/base:latest -c "tar czvf /backup/${CONTAINER_NAME}.tar.gz /registry"
     done
   fi

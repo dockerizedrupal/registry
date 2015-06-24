@@ -1,4 +1,6 @@
 class registry::nginx {
+  include registry::nginx::timeout
+
   if ! file_exists('/registry/ssl/certs/registry.crt') {
     require registry::nginx::ssl
   }

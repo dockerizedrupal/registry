@@ -6,6 +6,12 @@ fi
 
 export FACTER_SERVER_NAME="${SERVER_NAME}"
 
+if [ -z "${TIMEOUT}" ]; then
+  TIMEOUT="900"
+fi
+
+export FACTER_TIMEOUT="${TIMEOUT}"
+
 if [ -z "${USERNAME}" ]; then
   USERNAME="root"
 fi

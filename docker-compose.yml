@@ -9,6 +9,7 @@ registry:
     - registrydata
   environment:
     - SERVER_NAME=localhost
+    - TIMEOUT=900
     - USERNAME=root
     - PASSWORD=root
 registrydata:

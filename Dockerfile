@@ -3,7 +3,6 @@ FROM viljaste/base:latest
 MAINTAINER Jürgen Viljaste <j.viljaste@gmail.com>
 
 ENV TERM xterm
-ENV SETTINGS_FLAVOR registry
 
 ADD ./src /src
 

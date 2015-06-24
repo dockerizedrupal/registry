@@ -1,5 +1,5 @@
 class registry {
-#  require registry::nginx
+  require registry::nginx
 
   bash_exec { 'mkdir -p /registry/data/v2': }
 
@@ -9,11 +9,11 @@ class registry {
 #    mode => 644
 #  }
 #
-#  file { '/var/www/index.php':
-#    ensure => present,
-#    content => template('registry/index.php.erb'),
-#    owner => nginx,
-#    group => nginx,
-#    mode => 755
-#  }
+  file { '/var/www/index.php':
+    ensure => present,
+    content => template('registry/index.php.erb'),
+    owner => nginx,
+    group => nginx,
+    mode => 755
+  }
 }

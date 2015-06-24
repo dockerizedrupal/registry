@@ -1,13 +1,3 @@
-proxy_set_header Host $http_host;
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header Authorization "";
-
-proxy_read_timeout 900s;
-
-upstream registry {
-  server localhost:5000;
-}
-
 server {
   listen 443 ssl;
   server_name <%= @server_name %>;
@@ -22,17 +12,13 @@ server {
     fastcgi_param SCRIPT_FILENAME /var/www/ca.php;
   }
 
-  location @registry {
-    proxy_pass http://registry;
-  }
-
   location / {
-    auth_basic "Restricted";
+    auth_basic "Registry Authentication";
     auth_basic_user_file /registry/.htpasswd;
 
     index index.php;
 
-    try_files $uri $uri/ @registry;
+    try_files $uri $uri/ =404;
 
     location ~ index\.php {
       include fastcgi_params;
@@ -43,15 +29,31 @@ server {
     }
   }
 
+  location /v1 {
+    auth_basic "Registry Authentication";
+    auth_basic_user_file /registry/.htpasswd;
+
+    proxy_pass http://registry_v1;
+  }
+
   location /_ping {
     auth_basic off;
 
-    proxy_pass http://registry;
+    proxy_pass http://registry_v1;
   }
 
   location /v1/_ping {
     auth_basic off;
 
-    proxy_pass http://registry;
+    proxy_pass http://registry_v1;
+  }
+
+  location /v2 {
+    auth_basic "Registry Authentication";
+    auth_basic_user_file /registry/.htpasswd;
+
+    add_header 'Docker-Distribution-Api-Version:' 'registry/2.0' always;
+
+    proxy_pass http://registry_v2;
   }
 }
