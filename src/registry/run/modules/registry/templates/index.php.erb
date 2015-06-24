@@ -1,63 +1,9 @@
 <?php
-define('LIBRARY_PATH', '/registry/data/repositories/library');
 
-function repositories_get() {
-  $items = scandir(LIBRARY_PATH);
+require_once __DIR__ . '/v1.php';
+require_once __DIR__ . '/v2.php';
 
-  $items = array_diff($items, array(
-    '.',
-    '..',
-  ));
-
-  $repositories = array();
-
-  foreach ($items as $repository) {
-    $tags = repository_tags_get($repository);
-
-    if ($tags) {
-      ksort($tags);
-
-      $repositories[$repository] = $tags;
-    }
-  }
-
-  return $repositories;
-}
-
-function repository_tags_get($repository) {
-  $items = scandir(LIBRARY_PATH . '/' . $repository);
-
-  $items = array_diff($items, array(
-    '.',
-    '..',
-  ));
-
-  $tags = array();
-
-  foreach ($items as $tag) {
-    $matches = array();
-
-    if (preg_match('/^tag_(.*)/', $tag, $matches)) {
-      $tags[] = $matches[1];
-    }
-  }
-
-  return array_combine($tags, $tags);
-}
-
-function tag_last_updated_get($repository, $tag) {
-  $file_path = LIBRARY_PATH . '/' . $repository . '/tag' . $tag . '_json';
-
-  if (file_exists($file_path)) {
-    $file_contents = file_get_contents($file_path);
-
-    $info = json_decode($file_contents, TRUE);
-
-    return $info['last_update'];
-  }
-}
-
-$repositories = repositories_get();
+$repositories = registry_v2_repositories_get();
 
 ksort($repositories);
 ?>
@@ -94,6 +40,7 @@ ksort($repositories);
               <thead>
                 <tr>
                   <th>Image</th>
+                  <th>Version</th>
                   <th>Last updated</th>
                 </tr>
               </thead>
@@ -101,7 +48,8 @@ ksort($repositories);
                 <?php foreach ($tags as $tag): ?>
                   <tr>
                     <td><%= @server_name %>/<?php print $repository; ?>:<?php print $tag; ?></td>
-                    <td class="tag-last-updated"><?php print tag_last_updated_get($repository, $tag); ?></td>
+                    <td>v2</td>
+                    <td class="tag-last-updated"><?php print registry_v2_tag_last_updated_get($repository, $tag); ?></td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
