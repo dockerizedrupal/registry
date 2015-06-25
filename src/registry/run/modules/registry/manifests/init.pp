@@ -1,7 +1,7 @@
 class registry {
   require registry::nginx
-
-  bash_exec { 'mkdir -p /registry/data/v2': }
+  require registry::v1
+  require registry::v2
 
 #  file { '/usr/local/lib/python2.7/dist-packages/config/config.yml':
 #    ensure => present,
