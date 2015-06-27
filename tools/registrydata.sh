@@ -14,7 +14,7 @@ fi
 
 help() {
   cat << EOF
-registrydata: Usage: registrydata <backup|restore|rm>
+registrydata: Usage: registrydata <backup|restore>
 EOF
 
   exit 1
@@ -70,12 +70,6 @@ elif [ "${1}" = "restore" ]; then
       --entrypoint /bin/bash \
       viljaste/base:latest -c "tar xzvf /backup/${CONTAINER}.tar.gz"
   done
-elif [ "${1}" = "rm" ]; then
-  CONTAINERS="$(registrydata_containers)"
-
-  if [ -n "${CONTAINERS}" ]; then
-    docker rm -f ${CONTAINERS}
-  fi
 else
   unknown_command
 fi
