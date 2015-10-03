@@ -1,43 +1,40 @@
-# docker-registry
+# Registry
 
-A [Docker](https://docker.com/) container for [Docker Registry](https://github.com/docker/docker-registry) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for Basic authentication.
+A Docker image for [Distribution](https://github.com/docker/distribution) with [Nginx](http://nginx.org/) in front of it as a reverse proxy for HTTP Basic Authentication.
+
+This project is part of the [Dockerized Drupal](https://dockerizedrupal.com/) initiative.
 
 ## Run the container
 
-Using the `docker` command:
-
-    CONTAINER="registrydata" && sudo docker run \
+    CONTAINER="registry-data" && sudo docker run \
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      viljaste/data:latest
+      dockerizedrupal/data:1.1.0
 
     CONTAINER="registry" && sudo docker run \
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
+      --restart always \
       -p 80:80 \
       -p 443:443 \
-      --volumes-from registrydata \
+      --volumes-from registry-data \
       -e SERVER_NAME="localhost" \
-      -e TIMEOUT="900" \
-      -e USERNAME="root" \
-      -e PASSWORD="root" \
+      -e TIMEZONE="Etc/UTC" \
+      -e PROXY_READ_TIMEOUT="900" \
+      -e HTTP_BASIC_AUTH="Off" \
+      -e HTTP_BASIC_AUTH_1_USERNAME="container" \
+      -e HTTP_BASIC_AUTH_1_PASSWORD="" \
       -d \
-      viljaste/registry:latest
-
-Using the `docker-compose` command
-
-    TMP="$(mktemp -d)" \
-      && GIT_SSL_NO_VERIFY=true git clone https://git.beyondcloud.io/viljaste/docker-registry.git "${TMP}" \
-      && cd "${TMP}" \
-      && sudo docker-compose up
+      dockerizedrupal/registry:1.1.0
 
 ## Build the image
 
     TMP="$(mktemp -d)" \
-      && GIT_SSL_NO_VERIFY=true git clone https://git.beyondcloud.io/viljaste/docker-registry.git "${TMP}" \
+      && git clone https://github.com/dockerizedrupal/registry.git "${TMP}" \
       && cd "${TMP}" \
-      && sudo docker build -t viljaste/registry:latest . \
+      && git checkout 1.1.0 \
+      && sudo docker build -t dockerizedrupal/registry:1.1.0 . \
       && cd -
 
 ## Add the certification authority (CA) certificate to your host so the Docker client could communicate with the private registry securely
@@ -46,9 +43,9 @@ Using the `docker-compose` command
       && sudo update-ca-certificates --fresh \
       && sudo service docker restart
 
-## Creating new or updating existing users passwords
+## Changing the container behaviour on runtime through environment variables
 
-    sudo docker exec -i -t registry htpasswd /registry/.htpasswd username
+    // TODO
 
 ## Back up Registry data
 

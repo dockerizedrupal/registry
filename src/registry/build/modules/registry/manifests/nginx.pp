@@ -11,4 +11,6 @@ class registry::nginx {
     source => 'puppet:///modules/registry/etc/nginx/nginx.conf',
     mode => 644
   }
+
+  bash_exec { 'mkdir -p /etc/htpasswd': }
 }

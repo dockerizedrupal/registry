@@ -1,19 +1,21 @@
 registry:
-  image: viljaste/registry:latest
+  image: dockerizedrupal/registry:1.1.0
   hostname: registry
   restart: always
   ports:
     - "80:80"
     - "443:443"
   volumes_from:
-    - registrydata
+    - registry-data
   environment:
     - SERVER_NAME=localhost
-    - TIMEOUT=900
-    - USERNAME=root
-    - PASSWORD=root
-registrydata:
-  image: viljaste/data:latest
-  hostname: registrydata
+    - TIMEZONE=Etc/UTC
+    - PROXY_READ_TIMEOUT=900
+    - HTTP_BASIC_AUTH=On
+    - HTTP_BASIC_AUTH_1_USERNAME=container
+    - HTTP_BASIC_AUTH_1_PASSWORD=
+registry-data:
+  image: dockerizedrupal/data:1.1.0
+  hostname: registry-data
   volumes:
     - /registry

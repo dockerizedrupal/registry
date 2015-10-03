@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+VERSION="1.1.0"
+
 shopt -s nullglob
 
 WORKING_DIR="$(pwd)"
@@ -14,7 +16,9 @@ fi
 
 help() {
   cat << EOF
-registrydata: Usage: registrydata <backup|restore>
+Version: ${VERSION}
+
+Usage: registrydata <backup|restore>
 EOF
 
   exit 1
@@ -35,7 +39,7 @@ if [ -z "${1}" ]; then
 fi
 
 registrydata_containers() {
-  echo "$(docker ps -a | grep registrydata | awk '{ print $1 }')"
+  echo "$(docker ps -a | grep registry-data | awk '{ print $1 }')"
 }
 
 if [ "${1}" = "backup" ]; then
@@ -50,7 +54,7 @@ if [ "${1}" = "backup" ]; then
         --volumes-from "${CONTAINER}" \
         -v "${WORKING_DIR}:/backup" \
         --entrypoint /bin/bash \
-        viljaste/base:latest -c "tar czvf /backup/${CONTAINER_NAME}.tar.gz /registry"
+        dockerizedrupal/base-debian-jessie:1.1.0 -c "tar czvf /backup/${CONTAINER_NAME}.tar.gz /registry"
     done
   fi
 elif [ "${1}" = "restore" ]; then
@@ -61,14 +65,14 @@ elif [ "${1}" = "restore" ]; then
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      viljaste/data:latest
+      dockerizedrupal/data:1.1.0
 
     docker run \
       --rm \
       --volumes-from "${CONTAINER}" \
       -v "${WORKING_DIR}:/backup" \
       --entrypoint /bin/bash \
-      viljaste/base:latest -c "tar xzvf /backup/${CONTAINER}.tar.gz"
+      dockerizedrupal/base-debian-jessie:1.1.0 -c "tar xzvf /backup/${CONTAINER}.tar.gz"
   done
 else
   unknown_command

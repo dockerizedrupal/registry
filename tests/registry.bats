@@ -7,12 +7,14 @@ container() {
 }
 
 setup() {
-  docker-compose -f "${DOCKER_COMPOSE_FILE}" up -d --allow-insecure-ssl
+  docker-compose -f "${DOCKER_COMPOSE_FILE}" up
 
-  sleep 10
+  sleep 20
 
   wget --no-check-certificate https://localhost/ca -O /usr/local/share/ca-certificates/localhost.crt
+
   update-ca-certificates --fresh
+
   service docker restart
 }
 
@@ -21,12 +23,14 @@ teardown() {
   docker-compose -f "${DOCKER_COMPOSE_FILE}" rm --force
 
   rm /usr/local/share/ca-certificates/localhost.crt
+
   update-ca-certificates --fresh
+
   service docker restart
 }
 
 @test "registry" {
-  run docker login --username="root" --password="root" --email="root@localhost" https://localhost/v1/
+  run docker login --username="container" --password="container" --email="container@localhost" https://localhost
 
   [ "${status}" -eq 0 ]
 }

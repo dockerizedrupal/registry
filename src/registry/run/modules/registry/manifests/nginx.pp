@@ -1,5 +1,5 @@
 class registry::nginx {
-  include registry::nginx::timeout
+  include registry::nginx::proxy_read_timeout
 
   if ! file_exists('/registry/ssl/certs/registry.crt') {
     require registry::nginx::ssl
@@ -17,9 +17,16 @@ class registry::nginx {
     mode => 644
   }
 
-  if ! file_exists('/registry/.htpasswd') {
-    bash_exec { "htpasswd -b -c /registry/.htpasswd '$username' '$password'":
-      timeout => 0
+  if $http_basic_auth == "On" {
+    file { '/usr/local/bin/htpasswd_generator':
+      ensure => present,
+      content => template('registry/htpasswd_generator.sh.erb'),
+      mode => 755
+    }
+
+    bash_exec { 'htpasswd_generator':
+      timeout => 0,
+      require => File['/usr/local/bin/htpasswd_generator']
     }
   }
 }

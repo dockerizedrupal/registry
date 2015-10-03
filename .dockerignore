@@ -4,5 +4,9 @@
 README.md
 LICENSE.md
 docker-compose.yml
-tests
+VERSION.md
+Gruntfile.js
+package.json
+node_modules
 tools
+tests

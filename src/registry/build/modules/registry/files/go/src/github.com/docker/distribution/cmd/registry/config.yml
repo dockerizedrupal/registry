@@ -10,5 +10,5 @@ storage:
     uploadpurging:
       enabled: false
 http:
-  addr: :5001
+  addr: :5000
   secret: asecretforlocaldevelopment

@@ -1,7 +1,6 @@
 class registry {
   require registry::packages
-  require registry::v1
-  require registry::v2
+  require registry::distribution
   require registry::nginx
   require registry::php
 

@@ -13,8 +13,10 @@ server {
   }
 
   location / {
-    auth_basic "Registry Authentication";
-    auth_basic_user_file /registry/.htpasswd;
+    <% if @http_basic_auth == "On" -%>
+      auth_basic "Authentication Required";
+      auth_basic_user_file "/etc/htpasswd/.htpasswd";
+    <% end -%>
 
     index index.php;
 
@@ -29,31 +31,14 @@ server {
     }
   }
 
-  location /v1 {
-    auth_basic "Registry Authentication";
-    auth_basic_user_file /registry/.htpasswd;
-
-    proxy_pass http://registry_v1;
-  }
-
-  location /_ping {
-    auth_basic off;
-
-    proxy_pass http://registry_v1;
-  }
-
-  location /v1/_ping {
-    auth_basic off;
-
-    proxy_pass http://registry_v1;
-  }
-
   location /v2 {
-    auth_basic "Registry Authentication";
-    auth_basic_user_file /registry/.htpasswd;
+    <% if @http_basic_auth == "On" -%>
+      auth_basic "Authentication Required";
+      auth_basic_user_file "/etc/htpasswd/.htpasswd";
+    <% end -%>
 
     add_header 'Docker-Distribution-Api-Version:' 'registry/2.0' always;
 
-    proxy_pass http://registry_v2;
+    proxy_pass http://distribution;
   }
 }
