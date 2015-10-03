@@ -1,0 +1,67 @@
+body {
+  padding-bottom: 20px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  line-height: 36px;
+}
+
+th,
+td {
+  width: 50%;
+}
+
+.label .fa {
+  display: inline
+}
+
+.panel-heading {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.table > thead > tr > th {
+  background-color: #fafafa;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.current-version {
+  float: right;
+}
+
+.latest-version {
+  display: none;
+  float: right;
+}
+
+.page-header .current-version,
+.page-header .latest-version {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.tabs {
+  margin-bottom: 20px;
+}
+
+.nav-pills {
+  margin-bottom: 20px;
+}
+
+.nav-pills .fa-unlock,
+.nav-pills .fa-lock {
+  float: right;
+}
+
+.asterisk {
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.password {
+  display: none;
+  cursor: pointer;
+}

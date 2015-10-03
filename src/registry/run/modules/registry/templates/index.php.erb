@@ -1,38 +1,18 @@
 <?php
 
-require_once __DIR__ . '/v1.php';
-require_once __DIR__ . '/v2.php';
+require_once __DIR__ . '/registry.php';
 
-$registry_v1_repositories = registry_v1_repositories_get();
-$registry_v2_repositories = registry_v2_repositories_get();
+$REGISTRY_REPOSITORIES = registry_repositories_get();
 
 $repositories = array();
 
-foreach ($registry_v1_repositories as $repository => $tags) {
+foreach ($REGISTRY_REPOSITORIES as $repository => $tags) {
   if (!isset($repositories[$repository])) {
     $repositories[$repository] = array();
   }
 
   foreach ($tags as $tag) {
-    if (!isset($repositories[$repository][$tag])) {
-      $repositories[$repository][$tag] = array();
-    }
-
-    $repositories[$repository][$tag][v1] = registry_v1_tag_last_updated_get($repository, $tag);
-  }
-}
-
-foreach ($registry_v2_repositories as $repository => $tags) {
-  if (!isset($repositories[$repository])) {
-    $repositories[$repository] = array();
-  }
-
-  foreach ($tags as $tag) {
-    if (!isset($repositories[$repository][$tag])) {
-      $repositories[$repository][$tag] = array();
-    }
-
-    $repositories[$repository][$tag][v2] = registry_v2_tag_last_updated_get($repository, $tag);
+    $repositories[$repository][$tag] = registry_tag_last_updated_get($repository, $tag);
   }
 }
 
@@ -46,64 +26,74 @@ ksort($repositories);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= @server_name %></title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
   </head>
   <body>
-  <div id="page" class="container">
-    <div class="row">
-      <h1><%= @server_name %></h1>
-    </div>
-    <?php if ($repositories): ?>
-      <?php foreach ($repositories as $repository => $tags): ?>
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2 class="panel-title">
-                <?php print $repository; ?>
-              </h2>
-            </div>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Version 1: Last updated</th>
-                  <th>Version 2: Last updated</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($tags as $tag => $data): ?>
-                  <?php ksort($data); ?>
-                  <tr>
-                    <td><%= @server_name %>/<?php print $repository; ?>:<?php print $tag; ?></td>
-                    <?php if (!in_array('v1', array_keys($data))): ?>
-                      <td></td>
-                    <?php endif; ?>
-                    <?php foreach ($data as $version => $last_updated): ?>
-                      <td class="tag-last-updated"><?php print $last_updated; ?></td>
-                    <?php endforeach; ?>
-                    <?php if (!in_array('v2', array_keys($data))): ?>
-                      <td></td>
-                    <?php endif; ?>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-header">
+            <h1>
+              Registry <small><%= @server_name %></small>
+              <a href="https://hub.docker.com/r/dockerizedrupal/registry/" target="_blank">
+                <span class="current-version">
+                  <span class="label label-info">Current version: <span class="version">1.1.0</span></span>
+                </span>
+                <span class="latest-version" data-version-file="https://raw.githubusercontent.com/dockerizedrupal/registry/master/VERSION.md">
+                  <span class="label label-warning">New version is available <i class="fa fa-exclamation-circle"></i></span>
+                </span>
+              </a>
+            </h1>
           </div>
         </div>
-      <?php endforeach; ?>
-    <?php else: ?>
-      <div class="row">
-        There are no repositories pushed to this registry.
       </div>
-    <?php endif; ?>
-  </div>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/script.js"></script>
+      <?php if ($repositories): ?>
+        <div class="row">
+          <div class="col-md-12">
+            <?php foreach ($repositories as $repository => $tags): ?>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <3 class="panel-title">
+                    <i class="fa fa-cog"></i> <?php print $repository; ?>
+                  </3>
+                </div>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Last updated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($tags as $tag => $last_updated): ?>
+                      <?php ksort($data); ?>
+                      <tr>
+                        <td><%= @server_name %>/<?php print $repository; ?>:<?php print $tag; ?></td>
+                        <td class="last-updated"><?php print $last_updated; ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php else: ?>
+        <div class="row">
+          <div class="col-md-12">
+            There are no images pushed to the registry.
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
