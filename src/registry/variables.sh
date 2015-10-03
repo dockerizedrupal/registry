@@ -25,7 +25,7 @@ fi
 export FACTER_HTTP_BASIC_AUTH="${HTTP_BASIC_AUTH}"
 
 for VARIABLE in $(env); do
-  if [[ "${VARIABLE}" =~ ^HTTP_BASIC_AUTH_[[:digit:]]_USERNAME=.*$ ]]; then
+  if [[ "${VARIABLE}" =~ ^HTTP_BASIC_AUTH_[[:digit:]]+_USERNAME=.*$ ]]; then
     i="$(echo ${VARIABLE} | awk -F '_' '{ print $4 }')"
 
     HTTP_BASIC_AUTH_USERNAME="HTTP_BASIC_AUTH_${i}_USERNAME"
