@@ -2,17 +2,19 @@
 
 require_once __DIR__ . '/registry.php';
 
-$REGISTRY_REPOSITORIES = registry_repositories_get();
-
 $repositories = array();
 
-foreach ($REGISTRY_REPOSITORIES as $repository => $tags) {
-  if (!isset($repositories[$repository])) {
-    $repositories[$repository] = array();
-  }
+$registry_repositories = registry_repositories_get();
 
-  foreach ($tags as $tag) {
-    $repositories[$repository][$tag] = registry_tag_last_updated_get($repository, $tag);
+if (registry_repositories) {
+  foreach (registry_repositories as $repository => $tags) {
+    if (!isset($repositories[$repository])) {
+      $repositories[$repository] = array();
+    }
+
+    foreach ($tags as $tag) {
+      $repositories[$repository][$tag] = registry_tag_last_updated_get($repository, $tag);
+    }
   }
 }
 
@@ -59,9 +61,9 @@ ksort($repositories);
             <?php foreach ($repositories as $repository => $tags): ?>
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <3 class="panel-title">
+                  <h3 class="panel-title">
                     <i class="fa fa-cog"></i> <?php print $repository; ?>
-                  </3>
+                  </h3>
                 </div>
                 <table class="table table-bordered">
                   <thead>
