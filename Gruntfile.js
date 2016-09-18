@@ -1,5 +1,5 @@
 var current_version = '1.1.0';
-var new_version = '1.1.0';
+var new_version = '2.0.0';
 
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-replace');
@@ -90,6 +90,10 @@ module.exports = function(grunt) {
             {
               match: 'VERSION="' + current_version + '"',
               replacement: 'VERSION="' + new_version + '"'
+            },
+            {
+              match: 'dockerizedrupal/registry:' + current_version,
+              replacement: 'dockerizedrupal/registry:' + new_version
             }
           ],
           usePrefix: false
@@ -99,6 +103,25 @@ module.exports = function(grunt) {
             expand: true,
             src: [
               'tools/registrydata.sh'
+            ]
+          }
+        ]
+      },
+      task6: {
+        options: {
+          patterns: [
+            {
+              match: 'VERSION = "' + current_version + '"',
+              replacement: 'VERSION = "' + new_version + '"'
+            }
+          ],
+          usePrefix: false
+        },
+        files: [
+          {
+            expand: true,
+            src: [
+              'Vagrantfile'
             ]
           }
         ]

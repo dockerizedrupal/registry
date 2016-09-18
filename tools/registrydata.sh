@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="1.1.0"
+VERSION="2.0.0"
 
 shopt -s nullglob
 
@@ -54,7 +54,7 @@ if [ "${1}" = "backup" ]; then
         --volumes-from "${CONTAINER}" \
         -v "${WORKING_DIR}:/backup" \
         --entrypoint /bin/bash \
-        dockerizedrupal/base-debian-jessie:1.1.0 -c "tar czvf /backup/${CONTAINER_NAME}.tar.gz /registry"
+        dockerizedrupal/registry:2.0.0 -c "tar czvf /backup/${CONTAINER_NAME}.tar.gz /registry"
     done
   fi
 elif [ "${1}" = "restore" ]; then
@@ -65,14 +65,15 @@ elif [ "${1}" = "restore" ]; then
       --name "${CONTAINER}" \
       -h "${CONTAINER}" \
       -v /registry \
-      dockerizedrupal/data:1.1.0
+      --entrypoint /bin/echo \
+      dockerizedrupal/registry:2.0.0 "Data-only container for Registry."
 
     docker run \
       --rm \
       --volumes-from "${CONTAINER}" \
       -v "${WORKING_DIR}:/backup" \
       --entrypoint /bin/bash \
-      dockerizedrupal/base-debian-jessie:1.1.0 -c "tar xzvf /backup/${CONTAINER}.tar.gz"
+      dockerizedrupal/registry:2.0.0 -c "tar xzvf /backup/${CONTAINER}.tar.gz"
   done
 else
   unknown_command

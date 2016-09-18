@@ -1,5 +1,5 @@
 registry:
-  image: dockerizedrupal/registry:1.1.0
+  image: dockerizedrupal/registry:2.0.0
   hostname: registry
   ports:
     - "80:80"
@@ -14,7 +14,8 @@ registry:
     - HTTP_BASIC_AUTH_1_USERNAME=container
     - HTTP_BASIC_AUTH_1_PASSWORD=container
 registry-data:
-  image: dockerizedrupal/data:1.1.0
+  image: dockerizedrupal/registry:2.0.0
   hostname: registry-data
+  entrypoint: ["/bin/echo", "Data-only container for Registry."]
   volumes:
     - /registry
